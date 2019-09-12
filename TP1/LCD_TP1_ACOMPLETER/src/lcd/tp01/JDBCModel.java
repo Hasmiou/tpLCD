@@ -12,11 +12,8 @@ class JDBCModel implements IModel {
 	private static final String[] tableNames = { "MOVIE_mhd", "PEOPLE_mhd", "DIRECTOR_mhd", "ROLE_mhd" };
 
 	JDBCModel(String username, String password, String base) throws SQLException, ClassNotFoundException {
-
-		/*
-		 * À COMPLETER CONNEXION À LA BASE POSTGRESQL SUR LA MACHINE tp-postgres
-		 */
-
+		Class.forName("org.postgresqlDriver");
+		connection = DriverManager.getConnection("jdbc:postgresql://tp-postgres/");
 	}
 
 	public String[] getTableNames() {
@@ -26,6 +23,8 @@ class JDBCModel implements IModel {
 	// Ferme explicitement la connexion.
 	public void close() throws Exception {
 		if (connection != null) {
+			connection.close();
+			connection = null;
 			/*
 			 * À COMPLETER FERMER LA CONNEXION ET INITIALISER À NULL
 			 */
@@ -58,32 +57,17 @@ class JDBCModel implements IModel {
 			stmt.executeUpdate("CREATE TABLE DIRECTOR_mhd (mid INTEGER, pid INTEGER, PRIMARY KEY (mid, pid), "
 							+ "FOREIGN KEY (mid) REFERENCES MOVIE_mhd,"
 							+ "FOREIGN KEY (pid) REFERENCES PEOPLE_mhd)");
-			/*
-			 * À COMPLÉTER - DÉTRUIRE LES TABLES EXISTANTES - CRÉER LES TABLES
-			 * AVEC LE SCHEMA DEMANDÉ
-			 */
 		}
 
 	}
 
 	private void fillMovie(BufferedReader r) throws SQLException, IOException {
-		Statement stmt = connection.createStatement();
-		String line = null;
-		while((line = r.readLine()) != null) {
-			String[] fields = line.split(";");
-			String insert = "insert into MOVIE_mhd values("
-					+ fields[0]+ ","
-					+ fields[1]+ ","
-					+ fields[2]+ ","
-					+ fields[3]+ ","
-					+ fields[4]+ ";"
-					+ ")";
-		}
-
 		/*
 		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
 		 * pourra utiliser String.split() pour séparer selon des ';'.
 		 */
+	
+		//Statement stmt = connexion.createStatement
 
 	}
 
@@ -151,9 +135,20 @@ class JDBCModel implements IModel {
 	public Collection<String> query(String pattern) throws Exception {
 
 		if (connection != null) {
+			//Pour le patern Like
 			pattern = "'%" + pattern + "%'";
+			
+			//On crée un vector pour parcourir le resultat, pouvait mettre autre chose List, tableau, ...
 			Vector<String> v = new Vector<String>();
-
+			
+			Statement stmt = connection.createStatement();
+			
+			String sql = "Select title from movie_mhd where title like "+pattern;
+			ResultSet  res = stmt.executeQuery(sql);
+			while(res.next()) {
+				String s = res.getString(1);
+				v.add(s);
+			}
 			/*
 			 * À COMPLÉTER. ÉCRIRE DES REQUÊTES POUR REMPLIR v
 			 * AFIN QU'IL CONTIENNE DES CHAINES DE LA FORME
