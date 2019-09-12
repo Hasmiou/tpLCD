@@ -67,6 +67,18 @@ class JDBCModel implements IModel {
 	}
 
 	private void fillMovie(BufferedReader r) throws SQLException, IOException {
+		Statement stmt = connection.createStatement();
+		String line = null;
+		while((line = r.readLine()) != null) {
+			String[] fields = line.split(";");
+			String insert = "insert into MOVIE_mhd values("
+					+ fields[0]+ ","
+					+ fields[1]+ ","
+					+ fields[2]+ ","
+					+ fields[3]+ ","
+					+ fields[4]+ ";"
+					+ ")";
+		}
 
 		/*
 		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
@@ -105,22 +117,22 @@ class JDBCModel implements IModel {
 				 */
 				connection.setAutoCommit(false);
 				File f;
-				f = files.get("MOVIE");
+				f = files.get("MOVIE_mhd");
 				if (f == null)
 					throw new Exception();
 				fillMovie(new BufferedReader(new FileReader(f)));
 
-				f = files.get("PEOPLE");
+				f = files.get("PEOPLE_mhd");
 				if (f == null)
 					throw new Exception();
 				fillPeople(new BufferedReader(new FileReader(f)));
 
-				f = files.get("DIRECTOR");
+				f = files.get("DIRECTOR_mhd");
 				if (f == null)
 					throw new Exception();
 				fillDirector(new BufferedReader(new FileReader(f)));
 
-				f = files.get("ROLE");
+				f = files.get("ROLE_mhd");
 				if (f == null)
 					throw new Exception();
 				fillRole(new BufferedReader(new FileReader(f)));
