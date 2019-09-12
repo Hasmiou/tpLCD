@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="build/metamodel">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="accessible" pattern="javafx/**"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/javafx/javafx-swt.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.base.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.media.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="lib/javafx/javafx.web.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/envers/hibernate-envers-5.4.4.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/jpa-metamodel-generator/hibernate-jpamodelgen-5.4.4.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/osgi/hibernate-osgi-5.4.4.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/osgi/javax.interceptor-api-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/osgi/org.osgi.compendium-5.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/osgi/org.osgi.core-6.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/byte-buddy-1.9.11.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/classmate-1.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/dom4j-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/FastInfoset-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/hibernate-commons-annotations-5.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/hibernate-core-5.4.4.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/istack-commons-runtime-3.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jandex-2.0.5.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/javassist-3.24.0-GA.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/javax.activation-api-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/javax.persistence-api-2.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jaxb-runtime-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jboss-logging-3.3.2.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/jboss-transaction-api_1.2_spec-1.1.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/stax-ex-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate/required/txw2-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-42.2.2.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
