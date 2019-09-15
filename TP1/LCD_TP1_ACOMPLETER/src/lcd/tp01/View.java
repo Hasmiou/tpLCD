@@ -39,7 +39,7 @@ public class View extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			dbm = new JDBCModel("knguye10_a", "knguye10_a", "knguye10_a");
+			dbm = new JDBCModel("mdial11_a", "mdial11_a", "mdial11_a");
 			//dbm = new JDBCModel("knguye10_a", "knguye10_a", "knguye10_a");
 			files = new TreeMap<String, File>();
 			previousDir = null;

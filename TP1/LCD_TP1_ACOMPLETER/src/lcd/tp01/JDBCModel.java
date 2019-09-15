@@ -3,31 +3,36 @@ package lcd.tp01;
 import java.sql.*;
 import java.io.*;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Vector;
 import java.util.Collection;
 
 class JDBCModel implements IModel {
 
 	private Connection connection = null;
+	
+	//Modification des noms des tables de la base de doonée
 	private static final String[] tableNames = { "MOVIE_mhd", "PEOPLE_mhd", "DIRECTOR_mhd", "ROLE_mhd" };
-
+	
+	//La fonction d'initialisation de la connexion
 	JDBCModel(String username, String password, String base) throws SQLException, ClassNotFoundException {
 		Class.forName("org.postgresqlDriver");
 		connection = DriverManager.getConnection("jdbc:postgresql://tp-postgres/");
 	}
-
+	
 	public String[] getTableNames() {
 		return tableNames;
 	}
 
 	// Ferme explicitement la connexion.
 	public void close() throws Exception {
+		/*
+		 * Si la variable de connexion n'est pas null on ferme la connexion puis on la met à null 
+		 */
 		if (connection != null) {
 			connection.close();
 			connection = null;
-			/*
-			 * À COMPLETER FERMER LA CONNEXION ET INITIALISER À NULL
-			 */
+			
 		}
 
 	}
@@ -62,35 +67,76 @@ class JDBCModel implements IModel {
 	}
 
 	private void fillMovie(BufferedReader r) throws SQLException, IOException {
-		/*
-		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
-		 * pourra utiliser String.split() pour séparer selon des ';'.
-		 */
-	
-		//Statement stmt = connexion.createStatement
-
+		String values;
+		Statement stmt = connection.createStatement();
+		int n = 0;
+		String[] v;
+		while((values = r.readLine())!=null) {
+			v = values.split(";", 5);
+			stmt.addBatch("INSERT INTO MOVIE_mhd VALUES("+v[0]+", '"
+					+v[1].replace("'", "''")+"', "
+					+v[2]+","
+					+v[3]+", "
+					+v[4]+")");
+		}
+		
+		for(int i : stmt.executeBatch())
+			n+=i;
+		
+		System.out.println("Insertion terminés "+n+" Lignes inserée dans la table MOVIES");
 	}
 
 	private void fillPeople(BufferedReader r) throws SQLException, IOException {
-		/*
-		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
-		 * pourra utiliser String.split() pour séparer selon des ';'.
-		 */
+		String values;
+		Statement stmt = connection.createStatement();
+		int n=0;
+		String[] v;
+		while((values = r.readLine())!=null) {
+			v = values.split(";",3);
+			stmt.addBatch("INSET INTO PEOPLE_mhd VALUES("+v[0]+", '"
+					+v[1].replace("'","''")+"','"
+					+v[2].replace("'", "''")+"')");
+		}
+		for(int i : stmt.executeBatch()) 
+
+            n+=i; 
+
+        System.out.println("Insertion terminée "+n+" Lignes insérées dans la table PEOPLE"); 
 	}
 
 	private void fillDirector(BufferedReader r) throws SQLException, IOException {
-		/*
-		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
-		 * pourra utiliser String.split() pour séparer selon des ';'.
-		 */
+		String values;
+		Statement stmt = connection.createStatement();
+		int n = 0;
+		String[] v;
+		while ((values = r.readLine()) != null) {
+			v = values.split(";", 2);
+			stmt.addBatch("INSERT INTO DIRECTOR_mhd VALUES (" + v[0] + ", " + v[1] + ")");
+		}
+		;
+
+		for (int i : stmt.executeBatch())
+			n += i;
+
+		System.out.println("Insertion terminée "+n+" Lignes insérées dans la table DIRECTOR"); 
 
 	}
 
 	private void fillRole(BufferedReader r) throws SQLException, IOException {
-		/*
-		 * À COMPLÉTER : lire 'r' ligne à ligne et remplir la table MOVIE. On
-		 * pourra utiliser String.split() pour séparer selon des ';'.
-		 */
+		String values;
+		Statement stmt = connection.createStatement();
+		int n = 0;
+		String[] v;
+		while ((values = r.readLine()) != null) {
+			v = values.split(";", 3);
+			stmt.addBatch("INSERT INTO ROLE_mhd VALUES (" + v[0] + ", " + v[1] + ", '" + v[2].replace("'", "''") + "')");
+		}
+		;
+
+		for (int i : stmt.executeBatch())
+			n += i;
+
+		System.out.println("Insertion terminée "+n+" Lignes insérées dans la table ROLE"); 
 	}
 
 	public void fillTables(Map<String, File> files) throws Exception {
@@ -143,7 +189,7 @@ class JDBCModel implements IModel {
 			
 			Statement stmt = connection.createStatement();
 			
-			String sql = "Select title from movie_mhd where title like "+pattern;
+			String sql = "Select title, year from movie_mhd where title like "+pattern;
 			ResultSet  res = stmt.executeQuery(sql);
 			while(res.next()) {
 				String s = res.getString(1);
@@ -160,5 +206,23 @@ class JDBCModel implements IModel {
 		} else
 			throw new Exception();
 
+	}
+	
+	public static void main(String[] args) {
+		try {
+			IModel dbm = new JDBCModel("kim", "kim", "kim");
+			dbm.initialize();
+			Map<String, File> files = new TreeMap<String, File>();
+			files.put("MOVIE_mhd", new File("src/main/resources/movie.txt"));
+			files.put("PEOPLE_mhd", new File("src/main/resources/people.txt"));
+			files.put("DIRECTOR_mhd", new File("src/main/resources/director.txt"));
+			files.put("ROLE_mhd", new File("src/main/resources/role.txt"));
+
+			dbm.fillTables(files);
+			dbm.close();
+
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
 	}
 }
