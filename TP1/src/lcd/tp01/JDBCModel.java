@@ -200,7 +200,20 @@ class JDBCModel implements IModel {
 			 * AFIN QU'IL CONTIENNE DES CHAINES DE LA FORME
 			   Titre, Année, durée, Real1, …, Realn, Acteur 1 : Role 1, … Acteur m: Role m
 			 */
-
+			sql  = "SELECT m.title, p.firstname, p.lastname, r.name FROM movie m, role r, people p"
+					+ " WHERE m.mid = r.mid AND p.pid = r.pid AND"
+					+ " (p.firstname LIKE " + pattern
+					+ " OR p.lastname LIKE " + pattern
+					+ " OR r.name LIKE " + pattern
+					+ ")";
+			res = stmt.executeQuery(sql);
+			while (res.next()) {
+				String s = res.getString(1);
+				s += ", " + res.getString(2);
+				s += ", " + res.getString(3);
+				s += ", " + res.getString(4);
+				v.add(s);
+			}
 			return v;
 
 		} else
