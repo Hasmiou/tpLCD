@@ -1,0 +1,19 @@
+<!ELEMENT movies       (movie*)>
+<!ELEMENT movie        (title,year,runtime,directors,actor*,summary,alternate_titles) >
+<!ATTLIST movie        id ID #REQUIRED >
+<!ELEMENT title        (#PCDATA)>
+<!ELEMENT year         (#PCDATA)>
+<!ELEMENT runtime      (#PCDATA)>
+<!ELEMENT directors    (director*)>
+<!ELEMENT director     (name)>
+<!ELEMENT actor        (name,role)>
+<!ELEMENT name	       (firstname,lastname) >
+<!ELEMENT firstname    (#PCDATA)>
+<!ELEMENT lastname     (#PCDATA)>
+<!ELEMENT role         (#PCDATA)>
+<!ELEMENT summary      (#PCDATA)>
+<!ELEMENT alternate_titles   (atitle*)>
+<!ELEMENT atitle          (#PCDATA)>
+<!ATTLIST atitle country (fr|it|de) #REQUIRED >
+
+
