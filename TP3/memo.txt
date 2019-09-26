@@ -1,0 +1,45 @@
+Exo 1:  
+
+ 
+
+XpathRoot: Renvoie juste la racine du document 
+
+XpathTag: implémente la fonction T qu'on a vu en cours, il renvoie tous les element qui repondent à l'expression de tag. 
+
+/****** 
+
+         * A COMPLETER Renvoyer un Vector<Node> contenant tous les nœuds (dans l'ordre du document) 
+
+         * tels que : 
+
+         *  - si tag = "node()" renvoyer le nœud 
+
+         *  - si tag = "text()" renvoyer le nœud si son type (.getNodeType()) vaut Node.CDATA_SECTION_NODE 
+
+         *                      ou Node.TEXT_NODE 
+
+         *  - si tag = "*" renvoyer le nœud si son type est Node.ELEMENT_NODE 
+
+         *  - si tag = "foo" renvoyer le nœud si son nom (.getNodeName()) vaut 'foo' 
+
+         */ 
+
+Code source ici 
+
+ 
+
+XpathExpr: a la racine du document, l'ensemble des nœud dans une 
+
+ 
+
+XpathInter: évalue l'intersection de deux vecteurs trié. On parcours les tableaux element par elements, si U[i] === V[j] on les mets dans le tableau resultat R[] 
+
+Si U[i] > V[i] on fait avancer le curseur de V 
+
+Si V[i] > U[i] on fait avancer le curseur de U 
+
+Code source ici 
+
+ 
+
+XpathAxis: contient des chaine de caractère child, self, parent, descendant, … que nous devons implementer nous même 
